@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/broken-calculator/description/
+
+class Solution {
+public:
+    int brokenCalc(int X, int Y) {
+        int k = 0;
+        while (Y > X) {
+            if(Y%2 == 1) {
+                Y++;
+                k++;
+            } else {
+                Y /= 2;
+                k++;
+            }
+        }
+        return X - Y + k;
+                
+    }
+        
+};
