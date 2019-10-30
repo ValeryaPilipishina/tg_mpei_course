@@ -1,0 +1,25 @@
+// https://leetcode.com/problems/maximum-depth-of-n-ary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    int maxDepth(Node* root) {
+        if(!root) 
+            return 0;
+        
+        int maxdep = 0;
+        for(auto node : root->children) {
+            maxdep = max(maxdep, maxDepth(node));
+        }
+        return (maxdep + 1);
+    }
+};
