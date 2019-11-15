@@ -1,0 +1,43 @@
+// https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* func(const string& s, int& i, int depth){
+        int count = 0;
+        int j = i;
+        for(j = i; j < s.size() && s[j] == '-'; j++){
+            if(s[j] == '-'){
+                count++;
+            }
+        }
+        if(count < depth){
+            return NULL;
+        }
+        int num = s[j] - '0';
+        for(j = j + 1; j < s.size() && (s[j] >= '0' && s[j] <= '9'); j++){
+            num = num * 10 + s[j] -'0';
+        }
+        auto node = new TreeNode(num);
+        i = j;
+        node -> left = func(s, i, depth + 1);
+        node -> right = func(s, i, depth + 1);
+        return node;
+        
+    }
+    TreeNode* recoverFromPreorder(string s) {
+        if(s.empty()){
+            return NULL;
+        }
+        int i = 0;
+        return func(s, i, 0);
+    }
+};
