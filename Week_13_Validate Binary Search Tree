@@ -1,0 +1,26 @@
+// https://leetcode.com/problems/validate-binary-search-tree/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ 
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(!root) return true;
+        return pass(root->left, NULL, root) && pass(root->right, root, NULL);
+    }
+    
+    bool pass(TreeNode* cur, TreeNode* min, TreeNode* max){
+        if(!cur) return true;
+        if((min != NULL && cur->val <= min->val) || (max != NULL && cur->val >= max->val))
+            return false;
+        return pass(cur->left, min, cur) && pass(cur->right, cur, max);
+    }
+};
