@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/find-bottom-left-tree-value/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        
+        return helper(root,0).second; 
+    }
+    pair<int,int> helper(TreeNode* node,int level)  {
+        level++;
+        
+        if(!node->left&&!node->right) return {level,node->val};
+        
+        else if(!node->left&&node->right) return helper(node->right,level);
+        
+        else if(node->left&&!node->right) return helper(node->left,level);
+        
+        else {pair<int, int> resl=helper(node->left,level),resr=helper(node->right,level);
+              
+              return resr.first>resl.first?resr:resl;}
+    }
+};
